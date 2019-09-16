@@ -68,12 +68,12 @@
                                     <label for="photo_id">File input</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="photo_id">
+                                            <input type="file" class="custom-file-input" name="photo_id" id="photo_id">
                                             <label class="custom-file-label" for="photo_id">Choose file</label>
                                         </div>
-{{--                                        <div class="input-group-append">--}}
-{{--                                            <span class="input-group-text" id="">Upload</span>--}}
-{{--                                        </div>--}}
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="">Upload</span>
+                                        </div>
                                     </div>
                                 </div>
 

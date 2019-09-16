@@ -56,16 +56,21 @@ class AdminUsersController extends Controller
     public function store(UserRequest $request)
     {
 //        return $request->all();
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('is_active'));
-        $user->role_id = $request->input('role_id');
-        $user->is_active = $request->input('is_active') ;
 
-        $user->save();
+        if ($request->file('photo_id')){
+            return "Photo Exists";
+        }
 
-        return redirect()->intended('admin-users');
+//        $user = new User();
+//        $user->name = $request->input('name');
+//        $user->email = $request->input('email');
+//        $user->password = Hash::make($request->input('is_active'));
+//        $user->role_id = $request->input('role_id');
+//        $user->is_active = $request->input('is_active') ;
+//
+//        $user->save();
+
+//        return redirect()->intended('admin-users');
     }
 
     /**
