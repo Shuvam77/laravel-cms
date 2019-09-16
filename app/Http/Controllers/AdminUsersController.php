@@ -2,10 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
+use App\Role;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUsersController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +29,9 @@ class AdminUsersController extends Controller
     public function index()
     {
 
-        return view('admin.users.index');
+        $users = User::all();
+
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -24,7 +41,9 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::all();
+
+        return view('admin.users.create',  compact('roles'));
 
     }
 
@@ -34,9 +53,19 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+//        return $request->all();
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('is_active'));
+        $user->role_id = $request->input('role_id');
+        $user->is_active = $request->input('is_active') ;
+
+        $user->save();
+
+        return redirect()->intended('admin-users');
     }
 
     /**
