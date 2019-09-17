@@ -34,7 +34,7 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         <form role="form" method="post" enctype="multipart/form-data" action="{{ route('admin-users.store') }}">
-                            @csrf
+                        @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('email') }}" id="email" placeholder="Password" required>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" id="email" placeholder="Password" required>
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -76,7 +76,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group col-xl-4">
                                     <label>Select Role</label>
                                         <select class="form-control" id="role_id" name="role_id" required>

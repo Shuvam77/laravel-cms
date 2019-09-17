@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UsersEditRequest;
+use App\Photo;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 
 class AdminUsersController extends Controller
 {
@@ -55,22 +58,29 @@ class AdminUsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-//        return $request->all();
-
-        if ($request->file('photo_id')){
-            return "Photo Exists";
+        if(trim($request->password) == ''){
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            $input['password'] = Hash::make($request->password);
         }
 
-//        $user = new User();
-//        $user->name = $request->input('name');
-//        $user->email = $request->input('email');
-//        $user->password = Hash::make($request->input('is_active'));
-//        $user->role_id = $request->input('role_id');
-//        $user->is_active = $request->input('is_active') ;
-//
-//        $user->save();
+        if ($file = $request->file('photo_id')){
 
-//        return redirect()->intended('admin-users');
+            $name = time() . $file->getClientOriginalName();
+            $file->move('photos', $name);
+
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+
+//            $imagePath = request('photo_id')->store('userImage', 'public');
+//            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200,1200);
+//            $photo =Photo::create(['file'=>$name]);
+//            $input['photo_id'] = $photo->id;
+        }
+        User::create($input);
+
+        return redirect()->intended('admin-users');
     }
 
     /**
@@ -93,7 +103,11 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.users.edit');
+        $roles = Role::all();
+        $user = User::findOrFail($id);
+
+
+        return view('admin.users.edit', compact('user','roles'));
 
     }
 
@@ -104,9 +118,31 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsersEditRequest $request, $id)
     {
-        //
+        $user=User::findOrFail($id);
+
+//        if(trim($request->password) == ''){
+//            $input = $request->except('password');
+//        } else {
+//            $input = $request->all();
+//            $input['password'] = Hash::make($request->password);
+//        }
+
+        $input = $request->all();
+
+        if ($file = $request->file('photo_id')){
+
+            $name = time() . $file->getClientOriginalName();
+            $file->move('photos', $name);
+
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+
+        }
+        $user->update($input);
+
+        return redirect()->intended('admin-users');
     }
 
     /**
