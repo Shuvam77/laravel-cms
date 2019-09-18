@@ -9,6 +9,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
 class AdminUsersController extends Controller
@@ -122,14 +123,12 @@ class AdminUsersController extends Controller
     {
         $user=User::findOrFail($id);
 
-//        if(trim($request->password) == ''){
-//            $input = $request->except('password');
-//        } else {
-//            $input = $request->all();
-//            $input['password'] = Hash::make($request->password);
-//        }
-
-        $input = $request->all();
+        if(trim($request->password) == ''){
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            $input['password'] = Hash::make($request->password);
+        }
 
         if ($file = $request->file('photo_id')){
 
@@ -153,6 +152,12 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $user =  User::findOrFail($id);
+       unlink(public_path().$user->photo->file);
+        Photo::findOrFail($user->photo->id)->delete();
+
+        $user->delete();
+
+        return redirect()->intended('admin-users');
     }
 }

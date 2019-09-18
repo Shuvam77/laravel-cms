@@ -11,7 +11,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                         <li class="breadcrumb-item active">Main Dashboard</li>
 
                     </ol>
@@ -34,8 +34,9 @@
                         <!-- /.card-header -->
                         <!-- form start -->
 
-                        <form role="form"  method="PATCH" enctype="multipart/form-data" action="{{Route ('admin-users.update',$user->id)}}">
+                        <form role="form"  method="post" enctype="multipart/form-data" action="{{Route ('admin-users.update',$user->id)}}">
                             @csrf
+                            @method('PATCH')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -55,7 +56,15 @@
                                     </span>
                                     @enderror
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" id="email" placeholder="Password" >
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <div class="form-group">
@@ -72,7 +81,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Select Role</label>
-                                            <select class="form-control" id="role_id" name="role_id" required>
+                                            <select class="form-control" id="role_id" name="role_id" >
                                                 <option id="role_id" value="{{$user->role_id}}" disabled selected> {{$user->role->name}}</option>
                                                 @foreach($roles as $role)
                                                     <option id="role_id" value="{{ $role->id }}">{{ $role->name }}</option>
@@ -81,7 +90,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Active/Inactive</label>
-                                            <select class="form-control" id="is_active" name="is_active" required>
+                                            <select class="form-control" id="is_active" name="is_active" >
                                                 <option id="is_active" value="{{$user->is_active}}" selected disabled> {{$user->is_active == 0? 'Inactive' : 'Active'}}</option>
                                                 <option id="is_active" value="1">Active</option>
                                                 <option id="is_active" value="0">Inactive</option>
@@ -103,7 +112,24 @@
                                 <button type="submit" class="btn btn-primary fa-pull-right">Update</button>
                             </div>
                         </form>
+                        <form method="post" action="{{ route ('admin-users.destroy', $user->id) }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('DELETE')
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-danger fa-pull-right">Delete</button>
+                            </div>
+                        </form>
                     </div>
+
+                    <div class="row">
+
+                        @include('includes.form_error')
+
+
+                    </div>
+
+
                     <!-- /.card -->
                 </div>
             </div>

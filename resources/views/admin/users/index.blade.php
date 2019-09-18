@@ -10,9 +10,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                         <li class="breadcrumb-item active">Main Dashboard</li>
-
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -58,6 +57,7 @@
                                     <th>Updated Date</th>
                                     <th>Active/Inactive</th>
                                     <th>Edit</th>
+                                    <th>Delete</th>
 
                                 </tr>
                                 </thead>
@@ -78,10 +78,18 @@
                                             @else
                                             <span class="fa fa-fire">Active</span>
                                         @endif
-
 {{--                                        {{$user->is_active =0? 'inactive' : 'active'}}--}}
                                     </td>
                                     <td><a href="{{ Route('admin-users.edit',$user->id) }}">Edit</a></td>
+                                    <td>
+                                        <form method="post" action="{{ route ('admin-users.destroy', $user->id) }}" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('DELETE')
+
+                                                <button type="submit" class="btn btn-danger fa-pull-right">Delete</button>
+                                        </form>
+                                    </td>
+
                                 </tr>
                                     @endforeach
                                 @endif
