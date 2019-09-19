@@ -167,13 +167,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('admin-posts.index') }}" class="nav-link">
                                     <i class="fas fa-users nav-icon"></i>
                                     <p>All Posts</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('admin-posts.create') }}" class="nav-link">
                                     <i class="fas fa-plus-circle nav-icon"></i>
                                     <p>Create Post</p>
                                 </a>

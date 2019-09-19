@@ -123,12 +123,8 @@
                     </div>
 
                     <div class="row">
-
                         @include('includes.form_error')
-
-
                     </div>
-
 
                     <!-- /.card -->
                 </div>
