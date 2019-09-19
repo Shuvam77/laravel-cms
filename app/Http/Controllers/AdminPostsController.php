@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\category;
 use App\Http\Requests\PostsCreateRequest;
+use App\Http\Requests\PostsEditRequest;
 use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
@@ -18,7 +19,8 @@ class AdminPostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+//        $posts = Post::all();
+        $posts = Auth::user()->posts->all();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -77,7 +79,13 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        if (Auth::user()->id == $post->user_id){
+            $categories = category::all();
+            return view('admin.posts.edit',compact('post', 'categories'));
+        } else{
+            return redirect()->intended('admin-posts');
+        }
     }
 
     /**
@@ -87,9 +95,22 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostsEditRequest $request, $id)
     {
-        //
+        $input = $request->all();
+
+        if ($file = $request->file('photo_id')){
+
+            $name = time() . $file->getClientOriginalName();
+            $file->move('photos', $name);
+
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+
+        }
+        Auth::user()->posts()->whereId($id)->first()->update($input);
+
+        return redirect()->intended('admin-posts');
     }
 
     /**
@@ -100,6 +121,17 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+            $post = Post::findOrFail($id);
+//        if (Auth::user()->id == $post->user_id){
+            unlink(public_path().$post->photo->file);
+            Photo::findOrFail($post->photo->id)->delete();
+
+            $post->delete();
+            return redirect()->intended('admin-posts');
+//        } else{
+//            return redirect()->intended('admin-posts');
+//        }
+
+
     }
 }

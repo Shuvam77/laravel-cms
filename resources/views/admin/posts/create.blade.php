@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="body">Post Content</label>
-                                            <textarea class="textarea form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" id="body" placeholder="Post Content" required
+                                            <textarea class="textarea form-control @error('body') is-invalid @enderror" name="body" id="body" placeholder="Post Content" required
                                                       style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                     @error('body')
                                     <span class="invalid-feedback" role="alert">
