@@ -67,14 +67,14 @@
                                         </div>
                                     </div>
                                 </div>
-{{--                                <div class="form-group col-xl-4">--}}
-{{--                                    <label>Select Category</label>--}}
-{{--                                    <select class="form-control" id="category_id" name="category_id" required>--}}
-{{--                                        @foreach($categories as $category)--}}
-{{--                                            <option id="category_id" value="{{ $category->id }}">{{ $category->name }}</option>--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
+                                <div class="form-group col-xl-4">
+                                    <label>Select Category</label>
+                                    <select class="form-control" id="category_id" name="category_id" required>
+                                        @foreach($categories as $category)
+                                            <option id="category_id" value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 {{--                                <div class="form-group col-xl-4">--}}
 {{--                                    <label>Active/Inactive</label>--}}
 {{--                                    <select class="form-control" id="is_active" name="is_active" required>--}}

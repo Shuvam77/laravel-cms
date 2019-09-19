@@ -50,7 +50,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Post Image</th>
-{{--                                    <th>Post Category</th>--}}
+                                    <th>Post Category</th>
                                     <th>Post Author</th>
                                     <th>Title</th>
                                     <th>Body</th>
@@ -68,7 +68,7 @@
                                         <tr>
                                             <td>{{ $post->id }}</td>
                                             <td><img height="50" src="{{ $post->photo ? $post->photo->file : "https://via.placeholder.com/150" }}"></td>
-{{--                                            <td>{{$post->category->name}}</td>--}}
+                                            <td>{{$post->category->name}}</td>
                                             <td>{{ $post->user->name }}</td>
                                             <td>{{ $post->title }}</td>
                                             <td>{{ $post->body }}</td>
