@@ -93,6 +93,14 @@
                                         <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
                                 </form>
+                                <div class="card-footer">
+                                    <form method="post" action="{{ route ('admin-posts.destroy', $post->id) }}" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-danger fa-pull-left">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
