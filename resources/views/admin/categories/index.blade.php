@@ -1,6 +1,7 @@
 @extends('layouts.app2')
-
 @section('content')
+
+    @include('admin/categories/edit')
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -95,7 +96,7 @@
                                                             <td>{{ $category->name }}</td>
                                                             <td>{{ $category->created_at->diffForHumans() }}</td>
                                                             <td>{{ $category->updated_at->diffForHumans() }}</td>
-                                                            <td><a href="{{ Route('admin-categories.edit',$category->id) }}" data-toggle="modal" data-target="#category-edit">Edit</a></td>
+                                                            <td><a href="{{ Route('admin-categories.edit',$category->id) }}" data-id="{{$category->id}}" data-name="{{$category->name}}" data-toggle="modal" data-target="#category-edit">Edit</a></td>
                                                             <td>
                                                                 <form method="post" action="{{ route ('admin-categories.destroy', $category->id) }}" enctype="multipart/form-data">
                                                                     @csrf
@@ -126,7 +127,5 @@
             </div>
         </div>
     </section>
-
-
 
 @endsection

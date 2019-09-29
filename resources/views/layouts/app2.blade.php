@@ -127,10 +127,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/gallery.html" class="nav-link">
+                        <a href="{{ route('admin-categories.index') }}" class="nav-link">
                             <i class="nav-icon far fa-image"></i>
                             <p>
-                                Gallery
+                                Category
                             </p>
                         </a>
                     </li>
@@ -180,7 +180,29 @@
                             </li>
                         </ul>
                     </li>
-
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Media
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin-users.index') }}" class="nav-link">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    <p>All Media</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin-users.create') }}" class="nav-link">
+                                    <i class="fas fa-plus-circle nav-icon"></i>
+                                    <p>Create Media</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-header">Users</li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}"
@@ -258,5 +280,8 @@
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
+
+<script src="{{ asset('js/scripts.js') }}"></script>
+
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\category;
+use App\Category;
 use App\Http\Requests\PostsCreateRequest;
 use App\Http\Requests\PostsEditRequest;
 use App\Photo;
@@ -81,7 +81,7 @@ class AdminPostsController extends Controller
     {
         $post = Post::findOrFail($id);
         if (Auth::user()->id == $post->user_id){
-            $categories = category::all();
+            $categories = Category::all();
             return view('admin.posts.edit',compact('post', 'categories'));
         } else{
             return redirect()->intended('admin-posts');

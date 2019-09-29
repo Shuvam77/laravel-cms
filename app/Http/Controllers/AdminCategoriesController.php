@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\category;
+use App\Category;
 use Illuminate\Http\Request;
 
 class AdminCategoriesController extends Controller
@@ -14,7 +14,7 @@ class AdminCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = category::all();
+        $categories = Category::all();
         return view('admin.categories.index', compact('categories'));
 
     }
@@ -60,8 +60,9 @@ class AdminCategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = findOrFail($id);
-        return redirect()->intended('admin-categories', compact('category'));
+        $category = Category::findOrFail($id);
+        return view('admin.categories.edit',compact('category'));
+//        return redirect()->intended('admin-categories', compact('category'));
     }
 
     /**
@@ -71,9 +72,12 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $category = Category::findOrFail($request->id);
+
+        $category->update($request->all());
+        return back();
     }
 
     /**
@@ -84,6 +88,8 @@ class AdminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category= Category::findOrFail($id);
+        $category->delete();
+        return back();
     }
 }
