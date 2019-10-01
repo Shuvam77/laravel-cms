@@ -39,6 +39,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css') }}">
+
+    @yield('styles')
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -190,13 +192,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('admin-users.index') }}" class="nav-link">
+                                <a href="{{ route('admin-media.index') }}" class="nav-link">
                                     <i class="fas fa-users nav-icon"></i>
                                     <p>All Media</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin-users.create') }}" class="nav-link">
+                                <a href="{{ route('admin-media.create') }}" class="nav-link">
                                     <i class="fas fa-plus-circle nav-icon"></i>
                                     <p>Create Media</p>
                                 </a>
@@ -282,6 +284,8 @@
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 
 <script src="{{ asset('js/scripts.js') }}"></script>
+
+@yield('scripts')
 
 </body>
 </html>
